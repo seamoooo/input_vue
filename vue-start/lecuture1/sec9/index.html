@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+    <div id="app">
+      <p>
+        hellp<span
+          class="bg"
+          v-bind:class="{large: isLarge, 'text-danger': hasErrors }"
+          >vue.js</span
+        >
+      </p>
+      <p v-bind:class="[largeClass, dangerClass]">HELLO VUE</p>
+      <p v-bind:class="classObject">HELLO</p>
+
+      <p>HELLO <span v-bind:class="isLarge? largeClass : ''">VUEVUE</span></p>
+
+      <p></p>
+    </div>
+
+    <script>
+      // とv-bindしたクラスは別で記載する
+      // オブジェクト形式で渡すこともできる
+      // 配列形式で渡すこともできる
+      var app = new Vue({
+        el: '#app',
+        data: {
+          largeClass: {
+            large: true,
+            bg: true,
+          },
+          dangerClass: {
+            'text-danger': true,
+          },
+          classObject: {
+            large: true,
+            'text-danger': true,
+          },
+          isLarge: true,
+          hasErrors: true,
+          largeClass: 'large',
+          dangerClass: 'text-danger',
+        },
+      });
+    </script>
+  </body>
+</html>

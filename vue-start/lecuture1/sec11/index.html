@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+    <div id="app">
+      <p>{{ messages }}</p>
+      <input type="text" v-model="messages" value="hogehoge" />
+      <pre>
+        {{$data}}
+      </pre>
+
+      <pre>{{messages}}</pre>
+      <!-- <textarea name="" id="" cols="30" rows="10">{{messages}}</textarea> -->
+      <textarea v-model="messages" cols="30" rows="10"></textarea>
+
+      <!-- 単体のcheckboxの場合 -->
+      <input type="checkbox" id="checkbox" v-model="checked" />
+      <label for="checkbox">{{checked}}</label>
+
+      <!-- 複数のチェックboxの場合 -->
+      <input type="checkbox" id="red" value="Red" v-model="colors" />
+      <label for="red">Red</label>
+      <input type="checkbox" id="blue" value="Blue" v-model="colors" />
+      <label for="blue">blue</label>
+      <input type="checkbox" id="green" value="Green" v-model="colors" />
+      <label for="green">green</label>
+
+      <!-- ラジオボタン -->
+      <input type="radio" id="red" value="Red" v-model="color" />
+      <label for="red">red</label>
+      <input type="radio" id="blue" value="Blue" v-model="color" />
+      <label for="blue">blue</label>
+      <input type="radio" id="green" value="Green" v-model="color" />
+      <label for="green">green</label>
+
+      <!-- セレクトボックス -->
+      <select v-model="selected">
+        <option disable value="">洗濯してね</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+      </select>
+
+      <!-- .lazy -->
+      <p><input type="text" v-model.lazy="text" /></p>
+      <p>{{ text }}</p>
+
+      <!-- trim -->
+      <p><input type="text" v-model.trim="text" /></p>
+      <p>{{ text }}</p>
+      <p><input type="text" v-model="text" /></p>
+      <p>{{ text }}</p>
+
+      <!-- number -->
+      <p><input type="number" v-model.number="age" /></p>
+      <p>{{ age + 10 }}</p>
+    </div>
+
+    <script>
+      // v-modelの役割
+      // データバインディングで、要素のvalue属性を更新する
+      // イベントハンドリングで、受け取った値をデータに代入する
+      // v-model利用時はHTMLの要素に追加した、value,checked,selectedといった属性は無視される
+      // textareaではMustacheのデータバインディングは使用できないので、v-modelを使用する
+
+      // checkboxについて
+      // 単体ではboolean 複数では配列が入る
+
+      // v-modelの修飾子
+      // .lazy バインドのタイミングを遅らせる
+      // .trim 入力値から前後の空白を削除して、データ代入
+      // .number 入力値を数値型に型変換してからデータに代入
+      var app = new Vue({
+        el: '#app',
+        data: {
+          messages: 'hello Vue',
+          checked: false,
+          colors: [],
+          color: '',
+          selected: '',
+          text: '',
+          age: 0,
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+    <div id="app">
+      <!-- プロパティなのでカッコが不要 -->
+      <!-- getterとsetterが取れる -->
+      {{ reversedMessga }}
+      <!-- メソッドなので()が必要 -->
+      <!-- getterしか定義できない -->
+      {{ reversedMessges() }}
+
+      <!-- キャッシュされる(以前計算された結果を返す) -->
+      <p>{{computedNumver}}</p>
+      <p>{{computedNumver}}</p>
+      <p>{{computedNumver}}</p>
+      <p>{{computedNumver}}</p>
+      <p>{{computedNumver}}</p>
+
+      <!-- キャッシュされない(逐次実行する)  -->
+      <p>{{methodsNumber()}}</p>
+      <p>{{methodsNumber()}}</p>
+      <p>{{methodsNumber()}}</p>
+      <p>{{methodsNumber()}}</p>
+      <p>{{methodsNumber()}}</p>
+      <!-- 算出プロパティのgetterとsetter -->
+      <p>baceprice: <input type="text" v-model="bacePrice" /></p>
+      <p>tax included price: <input type="text" v-model="taxIncludePrice" /></p>
+    </div>
+
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          messages: 'hello messgae',
+          bacePrice: 100,
+        },
+        computed: {
+          reversedMessga: function () {
+            return this.messages.split('').reverse().join('');
+          },
+          computedNumver: function () {
+            return Math.random();
+          },
+          taxIncludePrice: {
+            get: function () {
+              return this.bacePrice * 1.08;
+            },
+            set: function () {
+              this.bacePrice = taxIncludePrice / 1.08;
+            },
+          },
+        },
+        methods: {
+          reversedMessges: function () {
+            return this.messages.split('').reverse().join('');
+          },
+          methodsNumber: function () {
+            return Math.random();
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

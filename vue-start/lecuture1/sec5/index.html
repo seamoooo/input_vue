@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+    <div id="app">
+      <!-- 初回だけvueのテンプレートとして評価 -->
+      <!-- 描画のパフォーマンス向上に使用する -->
+      <p v-once>{{message}}</p>
+      <button v-on:click="clickhandler">click</button>
+
+      <!-- 生のマスタッシュを使用するときに使用 -->
+      <p v-pre>{{ message}}</p>
+
+      <!-- XSSの危険性はあるので、使用は慎重にてか使わない -->
+      <p v-html="dom"></p>
+
+      <!-- v-cloak　描画時のチラつきを防止する -->
+      <p v-cloak>{{message}}</p>
+
+      <!-- マスタッシュの代わりにディレクティブを使いたい -->
+      <p v-text="message"></p>
+
+      <!-- 単一のjs式であれば挿入可能 -->
+      <p>{{ number + 1 }}</p>
+      <p>{{ ok ? 'YES': 'No' }}</p>
+
+      <!-- フィルター -->
+      <p>{{ price | numberFormat }}</p>
+      <input type="text" v-bind:value="price | Format" />
+
+      <p>{{text | readmore(20, '....')}}</p>
+    </div>
+
+    <script>
+      // グローバルフィルタ | |　パイプで複数のフィルターを使用することができる
+      Vue.filter('Format', function (value) {
+        return value.toLocaleString();
+      });
+      Vue.filter('readmore', function (text, length, suffix) {
+        return text.substring(0, length) + suffix;
+      });
+      var app = new Vue({
+        el: '#app',
+        data: {
+          message: 'hello vue',
+          dom: 'hello <p>hige</p> hoge',
+          number: 100,
+          ok: true,
+          price: 2980000000000,
+          jpyprice: 29800,
+          text: 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
+        },
+        filters: {
+          numberFormat: function (val) {
+            return val.toLocaleString();
+          },
+          toUSD: function (val) {
+            return val / 100;
+          },
+        },
+        methods: {
+          clickhandler: function (event) {
+            this.message = this.message.split('').reverse().join('');
+          },
+        },
+      });
+      console.log(app);
+    </script>
+  </body>
+</html>

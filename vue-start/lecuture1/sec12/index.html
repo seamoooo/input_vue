@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+    <div id="app">
+      <hello-content></hello-content>
+      <hello-content></hello-content>
+      <hello-content></hello-content>
+
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+    </div>
+
+    <script>
+      // グローバル
+      // Vue.component('hello', {
+      //   template: '<div>hello</div>',
+      // });
+
+      Vue.component('button-counter', {
+        // componentごとに新しいインスタンスが作成されるので、
+        // それぞれで値を保持することができる
+        // dataが関数の戻り値として返されている
+        data: function () {
+          return {
+            count: 0,
+          };
+        },
+        template: '<button v-on:click="count++">{{ count }}</button>',
+      });
+      // ローカル登録
+      const helloContent = {
+        template: '<div>helloo</div>',
+      };
+
+      const app = new Vue({
+        el: '#app',
+        data: {},
+        // -繋ぎのプロパティは''で囲う
+        // ハイフン繋ぎで定義する必要がある。HTML要素と被るため
+        components: {
+          'hello-content': helloContent,
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+    <div id="app">
+      <p>{{ messages }}}</p>
+      <p><input type="text" v-model:value="messages" /></p>
+      <pre>{{$data}}<pre>
+
+      <!-- 監視よりも算出を使用する。記述がシンプル -->
+      <p><input type="text" v-model:value="km">km</p>
+      <p><input type="text" v-model:value="m">m</p>
+      <p><input type="text" v-model:value="mm">mm</p>
+
+      <p>first name<input type="text" v-model:value="firstName"></p>
+      <p>last name<input type="text" v-model:value="lastName"></p>
+      <p>fullname: {{fullName}}</p>
+
+      <ul>
+        <li v-for='color in colors'>
+          {{color.name}}
+        </li>
+      </ul>
+    </div>
+      
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          messages: 'hello Vue.js',
+          km: 0,
+          m: 0,
+          mm:0,
+          firstName:'',
+          lastName: '',
+          fullName:'',
+          colors:[
+            {name: 'Red'},
+            {name: 'Green'},
+            {name: 'Bule'},
+          ]
+        },
+        computed: function(value){},
+
+        watch: {
+          colors: {
+            handler: function(newVal, oldVal) {
+              console.log('Update')
+            },
+            // ネストされた要素をwatchする
+            deep: true,
+            // 初期読み込みの値の変化をフックする
+            immediate: true
+          },
+          messages: function(newVal, oldVal){
+            // console.log('Stringの出力 : %s', str);
+            console.log('new: %s, old: %s', newVal, oldVal);
+          },
+          km: function(value){
+            this.km = value
+            this.m = value * 1000
+            this.mm = value * 1000000
+          },
+          m: function(value){
+            this.km = value / 1000
+            this.m = value
+            this.mm = value * 1000
+          },
+          mm: function(value){
+            this.km = value / 1000000
+            this.m = value / 1000
+            this.mm = value
+          },
+          firstName: function(value){
+            this.fullName = value +  '' + this.lastName
+          },
+          lastName: function(value){
+            this.fullName = this.firstName + '' + value
+          }
+        }
+      });
+
+    </script>
+  </body>
+</html>

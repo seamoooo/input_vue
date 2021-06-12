@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello Vue Router</title>
+  </head>
+  <body>
+    <div id="app">
+      <router-link to="/">HOME</router-link>
+      <router-link to="/users/123">USER</router-link>
+      <router-link to="/users/123/profile">profile</router-link>
+      <router-link to="/users/123/posts">posts</router-link>
+      <router-view></router-view>
+
+      <!-- <router-link :to="{name: 'user', params: {userID: 123}}"
+        >Go to User</router-link
+      > -->
+    </div>
+
+    <script src="https://unpkg.com/vue@2.6.10"></script>
+    <script src="https://unpkg.com/vue-router@3.0.6"></script>
+    <script>
+      // テンプレートの作成
+      const User = {
+        template: `
+        <div class="user">
+          <h2>User{{ $route.params.userID }}</h2>
+          <router-view></router-view>
+        </div>`,
+      };
+
+      const Profile = {
+        template: `
+        <div class="profile">
+          <h2>profile{{ $route.params.userID }}</h2>
+        </div>`,
+      };
+
+      const Posts = {
+        template: `
+        <div class="posts">
+          <h2>POSTS{{ $route.params.userID }}</h2>
+        </div>`,
+      };
+
+      // ルーターインスタンスの生成
+      const router = new VueRouter({
+        routes: [
+          {
+            path: '/users/:userID',
+            component: User,
+            children: [
+              {
+                path: 'profile',
+                component: Profile,
+              },
+              {
+                path: 'posts',
+                component: Posts,
+              },
+            ],
+          },
+        ],
+      });
+
+      // ルーターインスタンスのマウント
+      const app = new Vue({
+        // router: router
+        router,
+      }).$mount('#app');
+    </script>
+  </body>
+</html>
