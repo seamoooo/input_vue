@@ -1,18 +1,12 @@
 <template>
-  <v-layout wrap style="height: 200px;">
-
-    <v-container>
-      <v-layout justify-center>
-        <!--メニューの開閉 -->
-        <v-btn color="pink" dark @click.stop="drawer = !drawer">Toggle</v-btn>
-      </v-layout>
-    </v-container>
-
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+  <v-layout wrap style="height: 200px">
+    <v-navigation-drawer v-model="$store.state.drawer" absolute temporary>
       <v-list class="pa-1">
         <v-list-tile avatar>
           <v-list-tile-avatar>
-            <img src="https://avatars2.githubusercontent.com/u/1363954?s=460&v=4">
+            <img
+              src="https://avatars2.githubusercontent.com/u/1363954?s=460&v=4"
+            />
           </v-list-tile-avatar>
 
           <v-list-tile-content>
@@ -24,7 +18,7 @@
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
 
-        <v-list-tile v-for="item in items" :key="item.title" >
+        <v-list-tile v-for="item in items" :key="item.title">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -40,14 +34,14 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      drawer: false,
+      // storeに以降する
+      // drawer: false,
+
       // 配列で連絡先を保持
-      items: [
-        { title: '連絡先一覧', icon: 'list' }
-      ]
-    }
-  }
-}
+      items: [{ title: "連絡先一覧", icon: "list" }],
+    };
+  },
+};
 </script>
