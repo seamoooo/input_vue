@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Addresses from '../views/Addresses.vue'
 
 Vue.use(VueRouter)
 
@@ -12,6 +13,11 @@ const routes = [
     // 事前にimportしたコンポーネントを読み込む
     // 初回の描画時に読み込みが行われる
     component: Home
+  },
+  {
+    path: '/addresses',
+    name: 'addresses',
+    component: Addresses
   },
   {
     path: '/about',

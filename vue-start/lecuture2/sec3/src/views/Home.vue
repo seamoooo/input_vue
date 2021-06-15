@@ -3,13 +3,13 @@
 </template>
 
 <script>
-  import Adress from '../components/Adress'
+import Adress from "../views/Addresses";
 
-  export default {
-    name: 'Home',
+export default {
+  name: "Home",
 
-    components: {
-      Adress,
-    },
-  }
+  components: {
+    Adress,
+  },
+};
 </script>

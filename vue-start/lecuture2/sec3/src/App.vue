@@ -9,7 +9,9 @@
     </v-toolbar>
 
     <SideNav />
-    <v-content> </v-content>
+    <v-content>
+      <router-view />
+    </v-content>
   </v-app>
 </template>
 
